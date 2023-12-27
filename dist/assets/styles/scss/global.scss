@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+@import "./vars";
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    color: $grey;
+}
+
+.container {
+    padding: 0 calc(50% - 523px);
+}
+
+.active {
+    display: block;
+}
+
+.slick-dots {
+    position: absolute;
+    bottom: 0;
+    left: 155px;
+
+    display: flex;
+    gap: 0 10px;
+}
+
+.slick-dots li {
+    width: 11px;
+    height: 11px;
+}
+
+.slick-dots li button {
+    font-size: 0;
+    background-color: $light-grey;
+    border: none;
+    border-radius: 100%;
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+}
+
+.slick-dots li.slick-active button {
+    background-color: $blue;
+}
+
+button {
+    cursor: pointer;
+}
+
+.btn,
+.btn--blue {
+    padding: 15px 0;
+    text-align: center;
+    width: auto;
+    padding: 15px 0;
+    transition: all .3s;
+}
+
+.btn {
+    color: #C6C6C6;
+    background-color: transparent;
+    border: 1px solid #C6C6C6;
+
+    &:hover {
+        background-color: $blue;
+        color: #fff;
+    }
+}
+
+.btn--blue {
+    color: #fff;
+    background-color: $blue;
+    border: 1px solid transparent;
+    
+    &:hover {
+        background-color: transparent;
+        border: 1px solid #C6C6C6;
+        color: #C6C6C6;
+    }
+}
