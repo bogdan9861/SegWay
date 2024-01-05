@@ -1,6 +1,91 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/js/modules/scroll.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/scroll.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const scroll = () => {
+  const observedObjects = document.querySelectorAll(".animated");
+  const setAnimByClassName = (target, targetClass, animClass) => {
+    if (target.classList.contains(targetClass)) {
+      target.classList.add(animClass);
+    }
+  };
+  const observer = new IntersectionObserver(entries => {
+    // перебор записей
+    entries.forEach(entry => {
+      // если элемент появился
+      if (entry.isIntersecting) {
+        const target = entry.target;
+        setAnimByClassName(target, "leftIn", "leftIn-animation");
+        setAnimByClassName(target, "rightIn", "rightIn-animation");
+        setAnimByClassName(target, "fadeIn", "fadeIn-animation");
+      }
+    });
+  });
+  observedObjects.forEach(el => {
+    observer.observe(el);
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (scroll);
+
+/***/ }),
+
+/***/ "./src/js/modules/tabs.js":
+/*!********************************!*\
+  !*** ./src/js/modules/tabs.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const tabs = (headerSelector, tabsSelector, contentSelector) => {
+  const header = document.querySelector(headerSelector),
+    tabs = document.querySelectorAll(tabsSelector),
+    content = document.querySelectorAll(contentSelector);
+  header.addEventListener('click', e => {
+    const target = e.target;
+    const removeActive = () => {
+      tabs.forEach(el => {
+        el.classList.remove('active');
+      });
+      content.forEach(el => {
+        el.classList.remove('active');
+      });
+    };
+    const addActive = i => {
+      removeActive();
+      tabs[i].classList.add('active');
+      content[i].classList.add('active');
+    };
+    tabs.forEach((el, i) => {
+      if (el == target || el == target.parentNode) {
+        addActive(i);
+      }
+    });
+
+    // if (target.className != 'advantages__tab') {
+    //     target.parentNode.classList.add('active');
+    // } else {
+    //     target.classList.add('active');
+    // }
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (tabs);
+
+/***/ }),
+
 /***/ "./node_modules/jquery/dist/jquery.js":
 /*!********************************************!*\
   !*** ./node_modules/jquery/dist/jquery.js ***!
@@ -13817,12 +13902,22 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
+"use strict";
+var __webpack_exports__ = {};
 /*!************************!*\
   !*** ./src/js/main.js ***!
   \************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/tabs */ "./src/js/modules/tabs.js");
+/* harmony import */ var _modules_scroll__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/scroll */ "./src/js/modules/scroll.js");
 
+
+window.addEventListener('DOMContentLoaded', () => {
+  (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_0__["default"])('.adventages__tabs', '.adventages__tab', '.adventages__content-wrapper');
+  (0,_modules_scroll__WEBPACK_IMPORTED_MODULE_1__["default"])();
+});
 })();
 
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
@@ -13838,9 +13933,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(slick_carousel__WEBPACK_IMPORTED_MODULE_1__);
 
 
-jquery__WEBPACK_IMPORTED_MODULE_0___default()('.main__slider').slick({
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(".main__slider").slick({
   arrows: false,
   dots: true
+});
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(".reviews__slider").slick({
+  slidesToShow: 3,
+  nextArrow: '<button class="reviews__slider-nextBtn"><img class="reviews__slider-nextArrow" src="assets/images/assets/icons/next-arrow.svg" alt=""></button>',
+  prevArrow: '<button class="reviews__slider-prevBtn"><img class="reviews__slider-prevArrow" src="assets/images/assets/icons/prev-arrow.svg" alt=""></button>'
 });
 })();
 
